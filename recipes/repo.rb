@@ -17,23 +17,16 @@
 # limitations under the License.
 #
 
+# Packagecloud repos omit dot from major version
+major_version_no_dot = node['varnish']['version'].to_s.tr('.', '')
+
 case node['platform_family']
 when 'debian'
-  include_recipe 'apt'
-  apt_repository 'varnish-cache' do
-    uri "http://repo.varnish-cache.org/#{node['platform']}"
-    distribution node['lsb']['codename']
-    components ["varnish-#{node['varnish']['version']}"]
-    key "http://repo.varnish-cache.org/#{node['platform']}/GPG-key.txt"
-    deb_src true
-    notifies 'nothing', 'execute[apt-get update]', 'immediately'
+  packagecloud_repo "varnishcache/varnish#{major_version_no_dot}" do
+    type "deb"
   end
 when 'rhel', 'fedora'
-  yum_repository 'varnish' do
-    description "Varnish #{node['varnish']['version']} repo (#{node['platform_version']} - $basearch)"
-    url "http://repo.varnish-cache.org/redhat/varnish-#{node['varnish']['version']}/el#{node['platform_version'].to_i}/"
-    gpgcheck false
-    gpgkey 'http://repo.varnish-cache.org/debian/GPG-key.txt'
-    action :create
+  packagecloud_repo "varnishcache/varnish#{major_version_no_dot}" do
+    type "rpm"
   end
 end
