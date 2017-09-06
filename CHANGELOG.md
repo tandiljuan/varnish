@@ -2,6 +2,10 @@ varnish Cookbook CHANGELOG
 ==========================
 This file is used to list changes made in each version of the varnish cookbook.
 
+v2.4.1
+-----
+- Update varnish cache repo to packagecloud.io
+
 v2.4.0
 -----
 - Add additional attributes to allow use of template source from a wrapper cookbook
