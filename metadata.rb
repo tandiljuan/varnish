@@ -15,5 +15,6 @@ end
 depends 'apt', '~> 2.4'
 depends 'build-essential'
 depends 'chef-sugar'
+depends 'packagecloud', '= 0.3.0'
 depends 'yum', '~> 3.0'
 depends 'yum-epel'
